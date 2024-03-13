@@ -1,0 +1,197 @@
+.iconosRojos{
+color: #E12424;
+}
+
+#contenedorcito {
+    display: flex;
+    justify-content: center;
+}
+
+#kaka{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.key-icon::before {
+    content: "\f084"; /* Unicode for key icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.user-icon::before {
+    content: "\f007"; /* Unicode for user icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.input-field {
+    padding: 10px;
+
+    border-radius: 5px;
+    width: 350px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.input-field2 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+
+    display: flex;
+    justify-content: end;
+
+}
+
+.input-field3 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 760px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+
+}
+
+.cajaBotonesRPedidos {
+margin-top: 50px;
+display: flex;
+justify-content: center;
+}
+
+.cajaBotonesRPedidos button {
+padding: 10px 80px ;
+/* Ajusta el padding para hacer los botones más largos */
+border: none;
+border-radius: 5px;
+cursor: pointer;
+width: 20%;
+/* Ajusta el ancho de los botones */
+}
+
+.rojoRPedidos{
+    width: 100px;
+    text-align: center;
+}
+
+.espacioEntreBotonesRPedidos {
+width: 40px;
+/* Ajusta el ancho del espacio según tus preferencias */
+}
+
+#kaka {
+margin-right: 60px;
+
+}
+
+.iconosMorados{
+color:#8a0000}
+
+input::placeholder {
+padding-left: 8px;
+}
+
+input{
+border-radius: 3px;
+border: 1px solid #6d6d6d;
+}
+
+.contenido2 {
+    border-radius: 3px;
+    border: 1px solid #b9b9b9;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+}
+
+.rojoRPedidos{
+    background: #E12424;
+    color: white;
+}
+
+.rojoRPedidos:hover{
+    background: #f33928;
+}
+
+.rojoRPedidos:active{
+    box-shadow: 1px 1px 1px 1px #f33928;
+}
+
+.vinotinto{
+    background: #48110d;
+    color: white;
+}
+
+.vinotinto:hover{
+    background: #771d17;
+    
+}
+
+.vinotinto:active{
+    box-shadow: 1px 1px 1px 1px #771d17;
+}
+
+#tituloRPedidos {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    font-size: 15px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+}
+
+.tabladetalleP{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.hijotablaInsu{
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+
+.tabladetalleClien{
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.agregarInsu{
+    height: 40px;
+    width: 40PX;
+    border-radius: 30PX;
+    border: none;
+    background-color: #48110d;
+    color: #FFF;
+    margin-bottom: -25px;
+}
+
+.agregarClient{
+    height: 40px;
+    width: 40PX;
+    border-radius: 30PX;
+    border: none;
+    background-color: #48110d;
+    color: #FFF;
+    margin-bottom: -25px;
+}
