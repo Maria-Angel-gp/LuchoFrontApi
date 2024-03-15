@@ -12,6 +12,7 @@
   "dependencies": {
     "datatables.net-bs5": "^2.0.1",
     "jquery": "^3.7.1",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.2.0",

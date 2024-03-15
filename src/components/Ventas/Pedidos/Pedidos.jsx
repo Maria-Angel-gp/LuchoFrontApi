@@ -15,7 +15,7 @@ const Pedidos = () => {
                 </Link>
                 <button class="vinotinto boton boton-generar"><i class="fa-solid fa-file-pdf"></i> Generar reportes</button>
             </div>
-            <div class="tabla">
+            <div class="tablaP">
                 <table id="tablaDataTable" class="display">
                     <thead>
                         <tr>
