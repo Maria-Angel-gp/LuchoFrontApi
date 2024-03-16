@@ -1,0 +1,257 @@
+#tituloCliente{
+font-size: 15px;
+margin-top: -20px;
+display: flex;
+}
+
+.contenido {
+    text-align: center;
+}
+
+.contForms {
+    display: inline-block;
+    /* Alinea los formularios horizontalmente */
+    text-align: left;
+    /* Alinea el contenido de los formularios a la izquierda */
+    margin: 0 auto;
+    /* Centra los formularios horizontalmente */
+}
+
+
+.iconosRojos {
+    color: #E12424;
+}
+
+.iClienteFrecuente {
+    color: #E12424;
+    cursor: pointer;
+    /* background-color: #992222; */
+}
+
+
+.iconosMorados {
+    color: #48110d;
+}
+
+input {
+    border-radius: 3px;
+    border: 1px solid #6d6d6d;
+}
+
+.input1 input {
+    padding-left: 10px;
+    width: 300px;
+    height: 50px;
+}
+
+
+.input1 i {
+    font-size: 20px;
+}
+
+.parrafoGris {
+    color: gray;
+}
+
+
+.cajaBotones {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cajaBotones button {
+    padding: 10px 40px;
+    /* Ajusta el padding para hacer los botones más largos */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    /* Ajusta el ancho de los botones */
+}
+
+#guardar {
+    background-color: #48110d;
+    color: white;
+}
+
+#cancelar {
+    background-color: #E12424;
+    color: white;
+}
+
+
+.espacioEntreBotones {
+    width: 40px;
+    /* Ajusta el ancho del espacio según tus preferencias */
+}
+
+.gris {
+    color: #6d6d6d;
+}
+
+.contenido2{
+    border-radius: 10px;
+    border: 1px solid #b9b9b9;
+    margin-left: 200px;
+    margin-right: 200px;
+    background-color: #f8f8f8;
+}
+
+
+.rojo{
+    background: #E12424;
+    color: white;
+  
+  }
+  
+  .rojo:hover{
+    background: #f33928;
+  }
+  
+  .rojo:active{
+    box-shadow: 1px 1px 1px 1px #f33928;
+  }
+  
+  .vinotinto{
+    background: #48110d;
+    color: white;
+  }
+  
+  .vinotinto:hover{
+    background: #771d17;
+    
+  }
+  
+  .vinotinto:active{
+    box-shadow: 1px 1px 1px 1px #771d17;
+  }
+
+  .botones {
+    position: absolute;
+    z-index: 200;
+    margin-left: 87vh;
+    display: flex;
+    margin-top: -40px;
+    margin-bottom: -90px;
+}
+
+.boton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.botonAgregar {
+    margin-right: 82px;
+    background-color: #E12424;
+    color: white;
+}
+
+.boton-generar {
+    background-color: #48110d;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+.boton i {
+    margin-right: 10px;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.tabla{
+    border-collapse: collapse;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.busqueda{
+    height: 30px;
+    border-radius: 20px;
+    width: 500px;
+    margin-left: -250px;
+    margin-right: 250px;
+    margin-top: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: gray;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+    }
+
+input[type="checkbox"] {
+    display: none;
+}
+
+    input[type="checkbox"]:checked + .slider {
+        background-color: #771d17;
+    }
+
+        input[type="checkbox"]:checked + .slider:before {
+            transform: translateX(17px);
+        }
+
+.acciones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .acciones button{
+        margin-left: 10px;
+        margin-top: -6px;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+        font-size: 20px;
+    }
+
+/* .frecuentebuton{
+    background-color: rgba(127, 255, 212, 0.589);
+    border: none;
+    border-radius: 5px;
+} */
+
+.frecuente-button {
+    background-color: #4caf4f59;
+    color: #4caf4f;
+    border: none;
+    border-radius: 5px;
+}
+  
+.no-frecuente-button {
+    background-color: #b69f5260;
+    color: #b69f52;
+    border: none;
+}

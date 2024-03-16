@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import '../Ventas/Ventas.css';
+import '../../Layout.css';
 import DataTable from "react-data-table-component";
 
 
@@ -37,7 +38,7 @@ const Ventas = () => {
             const response = await fetch('http://localhost:8082/ventas/pedidos');
             if (response.ok) {
                 const data = await response.json();
-                const ventaData = data.filter(venta => venta.estado_pedido === 1).map(venta => ({
+                const ventaData = data.filter(venta => venta.estado_pedido === 3).map(venta => ({
                     id_venta: venta.id_pedido,
                     observacion: venta.observaciones,
                     fecha_venta: moment(venta.fecha_venta).format('DD/MM/YYYY'),
@@ -89,9 +90,9 @@ const Ventas = () => {
             name: "Accion",
             cell: (row) => (
                 <div>
-                    <label class="switch">
+                    <label className="switch">
                         <input id="@pro.IdProducto" type="checkbox" onchange="cambiarEstado(this)" />
-                        <span class="slider"></span>
+                        <span className="slider"></span>
                     </label>
                 </div>
             )
