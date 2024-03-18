@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import '../Ventas/Ventas.css';
+import estilos from '../Ventas/Ventas.module.css';
 import '../../Layout.css';
 import DataTable from "react-data-table-component";
 
@@ -90,9 +90,9 @@ const Ventas = () => {
             name: "Accion",
             cell: (row) => (
                 <div>
-                    <label className="switch">
-                        <input id="@pro.IdProducto" type="checkbox" onchange="cambiarEstado(this)" />
-                        <span className="slider"></span>
+                    <label className={estilos["switch"]}>
+                        <input type="checkbox" onchange="cambiarEstado(this)" />
+                        <span className={estilos["slider"]}></span>
                     </label>
                 </div>
             )
@@ -102,16 +102,16 @@ const Ventas = () => {
         <>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-            <div id="tituloVentas">
+            <div id={estilos["titulo"]}>
                 <h1>Ventas</h1>
             </div>
-            <div class="botonesVentas">
-                <button class="boton boton-generar" onclick="imprimirTabla()"><i class="fa-solid fa-file-pdf"></i></button>
+            <div className={estilos["botones"]}>
+                <button className={`boton ${estilos["boton-generar"]} ${estilos['vinotinto']}`} onclick="imprimirTabla()"><i className="fa-solid fa-file-pdf"></i>  Reporte</button>
             </div>
-            <div className='filtro'>
-                <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className="busqueda" />
+            <div className={estilos['filtro']}>
+                <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos["busqueda"]} />
             </div>
-            <div className='tabla'>
+            <div className={estilos['tabla']}>
                 <DataTable columns={columns} data={filteredVentas} pagination highlightOnHover />
             </div>
 

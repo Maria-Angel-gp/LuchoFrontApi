@@ -184,8 +184,8 @@ input {
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 20px;
+    width: 35px;
+    height: 18px;
 }
 
 .slider {
@@ -195,7 +195,7 @@ input {
     right: 0;
     bottom: 0;
     background-color: gray;
-    border-radius: 34px;
+    border-radius: 30px;
     transition: 0.4s;
 }
 
@@ -205,23 +205,58 @@ input {
         height: 15px;
         width: 15px;
         left: 4px;
-        bottom: 3px;
+        bottom: 2px;
         background-color: white;
         border-radius: 50%;
         transition: 0.4s;
     }
 
+
+.slider2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #771d17;
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+    .slider2:before{
+        
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+        transform: translateX(13px);
+    }
+
 input[type="checkbox"] {
     display: none;
 }
+    input[type="checkbox"]:checked + .slider2 {
+        background-color: gray;
+    }
+        input[type="checkbox"]:checked + .slider2:before {
+            transform: translateX(-1px);
+        }
 
+input[type="checkbox"] {
+    display: none;
+}
     input[type="checkbox"]:checked + .slider {
         background-color: #771d17;
     }
-
         input[type="checkbox"]:checked + .slider:before {
-            transform: translateX(17px);
+            transform: translateX(13px);
         }
+
 
 .acciones{
     display: flex;

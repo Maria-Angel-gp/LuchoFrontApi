@@ -4,12 +4,10 @@ import DataTable from "react-data-table-component";
 import { useState, useEffect } from "react";
 import '../../Layout.css';
 import estilos from '../Clientes/Clientes.module.css';
-import { nodeName, when } from "jquery";
 
 const Cliente = () => {
     const [clientes, setclientes] = useState([]);
     const [filtro, setFiltro] = useState('');
-    const [Frecuente, setFrecuente] =useState ([]);
 
     const fetchVenta = async () => {
         try {
@@ -91,24 +89,17 @@ const Cliente = () => {
             // ],
             cell: (row) =>(
                 <div>
-
                     <button className={`${estilos["frecuente-button"]} ${row.cliente_frecuente !== 1 && estilos['no-frecuente-button']}`}>{row.cliente_frecuente ==1 ? 'Frecuente' : 'No frecuente'}</button>
-                    
                 </div>
             ),
-        },
-        {
-            name : 'Estado del cliente',
-            selector : (row) => row.estado_cliente ===1 ? 'Activado' : 'Desactivado',
-            sortable : true
         },
         {
             name : "Acciones",
             cell : (row) =>(
                 <div className= {estilos["acciones"]}>
                     <label className={estilos["switch"]}>
-                        <input id="@pro.IdProducto" type="checkbox" onchange="cambiarEstado(this)" />
-                        <span className={estilos["slider"]}></span>
+                        <input type="checkbox" onchange="cambiarEstado(this)" />
+                        <span className={`${row.cliente_frecuente == 1 && estilos['slider2']} ${row.cliente_frecuente !==1 && estilos['slider']}`}></span>
                     </label>
                     <button><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`}></i></button>
                 </div>
