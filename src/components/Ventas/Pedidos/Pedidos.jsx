@@ -24,6 +24,7 @@ const Pedidos = () => {
                     estado_pedido:pedido.estado_pedido,
                     total_venta: pedido.total_venta,
                     total_pedido: pedido.total_pedido,
+                    id_cliente : pedido.id_cliente
 
                 }));
                 setPedidos(pedidoData);
@@ -68,6 +69,11 @@ const Pedidos = () => {
         {
             name :"Fecha del pedido",
             selector: (row)=>row.fecha_pedido,
+            sortable: true
+        },
+        {
+            name :'Cliente',
+            selector: (row)=>row.id_cliente,
             sortable: true
         },
         {

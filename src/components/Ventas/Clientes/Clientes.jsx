@@ -4,10 +4,14 @@ import DataTable from "react-data-table-component";
 import { useState, useEffect } from "react";
 import '../../Layout.css';
 import estilos from '../Clientes/Clientes.module.css';
+import Modal from './modal';
+import styled from 'styled-components';
 
 const Cliente = () => {
     const [clientes, setclientes] = useState([]);
     const [filtro, setFiltro] = useState('');
+
+    const [estadoModal1, cambiarEstadoModal1] = useState(false);
 
     const fetchVenta = async () => {
         try {
@@ -114,9 +118,7 @@ const Cliente = () => {
                     <h1>Clientes</h1>
                 </div>
             <div className={estilos["botones"]}>
-                <Link to= "/agregarCliente">                
-                    <button className={`boton ${estilos.botonAgregar} ${estilos.rojo}`}><i className="fa-solid fa-plus"></i> Agregar cliente</button>
-                </Link>
+                <button onClick={() => cambiarEstadoModal1(!estadoModal1)} className={`boton ${estilos.botonAgregar} ${estilos.rojo}`}><i className="fa-solid fa-plus"></i> Agregar Cliente</button>
                 <button className={`boton ${estilos["boton-generar"]} ${estilos.vinotinto}`}><i className="fa-solid fa-file-pdf"></i></button>
             </div>
             <div className={estilos['filtro']}>
@@ -125,9 +127,73 @@ const Cliente = () => {
             <div className={estilos["tabla"]}>
                 <DataTable columns={columns} data={filteredClientes} pagination paginationPerPage={4} highlightOnHover></DataTable>
             </div>
+            <Modal
+				estado={estadoModal1}
+				cambiarEstado={cambiarEstadoModal1}
+				titulo="Prueba!"
+				mostrarHeader={true}
+				mostrarOverlay={true}
+				posicionModal={'center'}
+                width={'500px'}
+				padding={'20px'}
+			>
+				<Contenido>
+					<h1>Ventana Modal</h1>
+					<p>Reutilizable y con opciones de personalización.</p>
+					<button onClick={() => cambiarEstadoModal1(!estadoModal1)}>Aceptar</button>
+				</Contenido>
+			</Modal>
         </>
     )
 }
 // id, nombre, telefono, direccion, funciones
 
 export default Cliente;
+
+const ContenedorBotones = styled.div`
+	padding: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+`;
+
+const Boton = styled.button`
+	display: block;
+	padding: 10px 30px;
+	border-radius: 100px;
+	color: #fff;
+	border: none;
+	background: #1766DC;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	transition: .3s ease all;
+
+	&:hover {
+		background: #0066FF;
+	}
+`;
+
+const Contenido = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	h1 {
+		font-size: 42px;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+
+	p {
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+
+	img {
+		width: 100%;
+		vertical-align: top;
+		border-radius: 3px;
+	}
+`;

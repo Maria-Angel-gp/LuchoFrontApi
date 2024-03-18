@@ -53,23 +53,6 @@ input {
     color: gray;
 }
 
-
-.cajaBotones {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.cajaBotones button {
-    padding: 10px 40px;
-    /* Ajusta el padding para hacer los botones más largos */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 20%;
-    /* Ajusta el ancho de los botones */
-}
-
 #guardar {
     background-color: #48110d;
     color: white;
@@ -80,11 +63,6 @@ input {
     color: white;
 }
 
-
-.espacioEntreBotones {
-    width: 40px;
-    /* Ajusta el ancho del espacio según tus preferencias */
-}
 
 .gris {
     color: #6d6d6d;
@@ -129,7 +107,6 @@ input {
 
   .botones {
     position: absolute;
-    z-index: 200;
     margin-left: 87vh;
     display: flex;
     margin-top: -40px;
@@ -271,6 +248,7 @@ input[type="checkbox"] {
         border: none;
         font-size: 20px;
     }
+
 
 /* .frecuentebuton{
     background-color: rgba(127, 255, 212, 0.589);
