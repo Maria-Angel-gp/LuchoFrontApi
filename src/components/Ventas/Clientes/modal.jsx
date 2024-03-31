@@ -67,23 +67,23 @@ const EncabezadoModal = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 20px;
-	padding-bottom: 20px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #E8E8E8;
 
 	h3 {
 		font-weight: 500;
 		font-size: 16px;
-		color: #1766DC;
+		color: #000000;
 	}
 `;
 
 const BotonCerrar = styled.button`
 	position: absolute;
-	top: 15px;
+	top: 25px;
 	right: 20px;
 
-	width: 30px;
+	width: 40px;
 	height: 30px;
 	border: none;
 	background: none;

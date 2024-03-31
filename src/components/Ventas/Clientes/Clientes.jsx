@@ -130,7 +130,7 @@ const Cliente = () => {
             <Modal
 				estado={estadoModal1}
 				cambiarEstado={cambiarEstadoModal1}
-				titulo="Prueba!"
+				titulo="Registrar Cliente"
 				mostrarHeader={true}
 				mostrarOverlay={true}
 				posicionModal={'center'}
@@ -138,8 +138,28 @@ const Cliente = () => {
 				padding={'20px'}
 			>
 				<Contenido>
-					<h1>Ventana Modal</h1>
-					<p>Reutilizable y con opciones de personalización.</p>
+                    <div className={estilos["contFormsRCliente"]}>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-key iconosRojosRCliente"></i> Documento del cliente</p>
+                            <input id="id_cliente" className="input-field" type="number" placeholder="10203040"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-font iconosRojosRCliente"></i> Nombre del cliente</p>
+                            <input id="nombre_cliente" className="input-field" type="text" placeholder="Nombre"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-phone iconosRojosRCliente"></i> Telefono del cliente</p>
+                            <input id="telefono_cliente" className="input-field" type="text" placeholder="Telefono"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-sharp fa-solid fa-location-dot iconosRojosRCliente"></i> Dirección del cliente</p>
+                            <input id="direccion_cliente" className="input-field" type="text" placeholder="Dirección"/>
+                        </div>
+                        <br/>
+                    </div>
 					<button onClick={() => cambiarEstadoModal1(!estadoModal1)}>Aceptar</button>
 				</Contenido>
 			</Modal>
@@ -169,6 +189,7 @@ const Boton = styled.button`
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
 	transition: .3s ease all;
+    margin-top: 20px;
 
 	&:hover {
 		background: #0066FF;
@@ -187,8 +208,8 @@ const Contenido = styled.div`
 	}
 
 	p {
-		font-size: 18px;
-		margin-bottom: 20px;
+		font-size: 16px;
+		margin-bottom: 11px;
 	}
 
 	img {

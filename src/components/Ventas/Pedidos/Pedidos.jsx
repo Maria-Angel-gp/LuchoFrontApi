@@ -16,7 +16,7 @@ const Pedidos = () => {
             const response = await fetch ('http://localhost:8082/ventas/pedidos');
             if (response.ok){
                 const data = await response.json();
-                const pedidoData = data.map(pedido =>({
+                const pedidoData = data.filter(pedido =>pedido.estado_pedido !==3).map(pedido =>({
                     id_pedido : pedido.id_pedido,
                     observaciones : pedido.observaciones,
                     fecha_venta : moment(pedido.fecha_venta).format('DD/MM/YYYY'),
