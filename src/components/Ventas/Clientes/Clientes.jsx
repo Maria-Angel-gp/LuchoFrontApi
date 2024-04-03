@@ -12,6 +12,7 @@ const Cliente = () => {
     const [filtro, setFiltro] = useState('');
 
     const [estadoModal1, cambiarEstadoModal1] = useState(false);
+    const [estadoModal2, cambiarEstadoModal2] = useState(false);
 
     const fetchVenta = async () => {
         try {
@@ -105,7 +106,7 @@ const Cliente = () => {
                         <input type="checkbox" onchange="cambiarEstado(this)" />
                         <span className={`${row.cliente_frecuente == 1 && estilos['slider2']} ${row.cliente_frecuente !==1 && estilos['slider']}`}></span>
                     </label>
-                    <button><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`}></i></button>
+                    <button onClick={() => cambiarEstadoModal2(!estadoModal2)}><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`}></i></button>
                 </div>
             )
         },
@@ -117,15 +118,16 @@ const Cliente = () => {
                 <div id={estilos["tituloCliente"]}>
                     <h1>Clientes</h1>
                 </div>
-            <div className={estilos["botones"]}>
-                <button onClick={() => cambiarEstadoModal1(!estadoModal1)} className={`boton ${estilos.botonAgregar} ${estilos.rojo}`}><i className="fa-solid fa-plus"></i> Agregar Cliente</button>
-                <button className={`boton ${estilos["boton-generar"]} ${estilos.vinotinto}`}><i className="fa-solid fa-file-pdf"></i></button>
-            </div>
-            <div className={estilos['filtro']}>
+            <div className={estilos['botones']}>
                 <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos["busqueda"]} />
+                <div>
+                    <button onClick={() => cambiarEstadoModal1(!estadoModal1)} className={`${estilos.botonAgregar} ${estilos.rojo}`}><i className="fa-solid fa-plus"></i> Agregar</button>
+                    <button className={`${estilos["boton-generar"]} ${estilos.vinotinto}`}><i className="fa-solid fa-file-pdf"></i></button>
+                </div>
+
             </div>
             <div className={estilos["tabla"]}>
-                <DataTable columns={columns} data={filteredClientes} pagination paginationPerPage={4} highlightOnHover></DataTable>
+                <DataTable columns={columns} data={filteredClientes} pagination paginationPerPage={6} highlightOnHover></DataTable>
             </div>
             <Modal
 				estado={estadoModal1}
@@ -160,9 +162,48 @@ const Cliente = () => {
                         </div>
                         <br/>
                     </div>
-					<button onClick={() => cambiarEstadoModal1(!estadoModal1)}>Aceptar</button>
+                    <div className={estilos["BotonesClientes"]}>
+                        <button className={estilos['RegistrarCliente']}>Aceptar</button>
+					    <button onClick={() => cambiarEstadoModal1(!estadoModal1)}>Cancelar</button>
+                    </div>
 				</Contenido>
 			</Modal>
+            <Modal
+                estado={estadoModal2}
+                cambiarEstado={cambiarEstadoModal2}
+                titulo="Editar Cliente"
+                mostrarHeader={true}
+                mostrarOverlay={true}
+                posicionModal={'center'}
+                width={'500px'}
+                padding={'20px'}
+            >
+                <Contenido>
+                    <div className={estilos["contFormsRCliente"]}>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-key iconosRojosRCliente"></i> Documento del cliente</p>
+                            <input id="id_cliente" className="input-field" type="number" placeholder="10203040"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-font iconosRojosRCliente"></i> Nombre del cliente</p>
+                            <input id="nombre_cliente" className="input-field" type="text" placeholder="Nombre"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-solid fa-phone iconosRojosRCliente"></i> Telefono del cliente</p>
+                            <input id="telefono_cliente" className="input-field" type="text" placeholder="Telefono"/>
+                        </div>
+                        <br/>
+                        <div className={estilos["input1RCliente"]}>
+                            <p><i className="fa-sharp fa-solid fa-location-dot iconosRojosRCliente"></i> Dirección del cliente</p>
+                            <input id="direccion_cliente" className="input-field" type="text" placeholder="Dirección"/>
+                        </div>
+                        <br/>
+                    </div>
+                    <button onClick={() => cambiarEstadoModal1(!estadoModal1)}>Aceptar</button>
+                </Contenido>
+            </Modal>
         </>
     )
 }

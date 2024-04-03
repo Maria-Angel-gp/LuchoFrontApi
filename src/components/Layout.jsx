@@ -24,7 +24,7 @@ const Layout = () => {
     };
 
     return (
-        <div>
+        <>
             <div className="barraPrincipal">
                 <div className="contenedor_1">
                     <img src="/archivos/imagenes/LuchoGod.png" height="45px" length="45px" alt="Logo" />
@@ -113,7 +113,7 @@ const Layout = () => {
                     <Outlet />
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
