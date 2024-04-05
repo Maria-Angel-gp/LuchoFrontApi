@@ -88,7 +88,7 @@ input {
   }
   
   .rojo:active{
-    box-shadow: 1px 1px 1px 1px #f33928;
+    box-shadow: 1px 1px 1px 1px #3e7fc9;
   }
 
   
@@ -116,7 +116,6 @@ input {
     height: 40px;
     width: 150px;
     font-size: 15px;
-
 }
 
 .boton-generar {
@@ -130,9 +129,7 @@ input {
     border: none;
 }
 
-.boton i {
-    margin-right: 10px;
-}
+
 
 .pull-left {
     float: left !important;
@@ -223,7 +220,7 @@ input[type="checkbox"] {
     display: none;
 }
     input[type="checkbox"]:checked + .slider {
-        background-color: #771d17;
+        background-color: #1F67B9;
     }
         input[type="checkbox"]:checked + .slider:before {
             transform: translateX(13px);

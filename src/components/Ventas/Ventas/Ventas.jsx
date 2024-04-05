@@ -106,10 +106,10 @@ const Ventas = () => {
                 <h1>Ventas</h1>
             </div>
             <div className={estilos["botones"]}>
-                <button className={`boton ${estilos["boton-generar"]} ${estilos['vinotinto']}`} onclick="imprimirTabla()"><i className="fa-solid fa-file-pdf"></i>  Reporte</button>
-            </div>
-            <div className={estilos['filtro']}>
                 <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos["busqueda"]} />
+                <div>
+                    <button className={`${estilos["boton-generar"]} ${estilos['vinotinto']}`} onclick="imprimirTabla()"><i className="fa-solid fa-file-pdf"></i></button>
+                </div>
             </div>
             <div className={estilos['tabla']}>
                 <DataTable columns={columns} data={filteredVentas} pagination highlightOnHover />

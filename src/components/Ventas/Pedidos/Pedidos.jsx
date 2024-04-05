@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 import estilos from '../Pedidos/Pedidos.module.css';
 import DataTable from 'react-data-table-component';
 import moment from "moment";
+import Modal from '../Clientes/modal';
+import styled from 'styled-components';
 
 
 
 const Pedidos = () => {
     const [Pedidos, setPedidos] = useState([]);
     const [filtro, setFiltro] = useState('');
+    const [estadoModal1, cambiarEstadoModal1] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
 
     const fetchPedido = async () =>{
         try{
@@ -47,6 +51,8 @@ const Pedidos = () => {
         pedido.observaciones.toLowerCase().includes(filtro.toLowerCase())||
         pedido.total_pedido.toString().includes(filtro)
     );
+
+    
 
     const estadoMapping = {
         1: 'Pendiente',
@@ -88,17 +94,63 @@ const Pedidos = () => {
             name :'Acciones',
             cell :(row) =>(
                 <div className={estilos['acciones']}>
-                    <select name="Estado Pedido" id={estilos.estado_pedido} >    
-                        <option value="1">Pendiente</option>
-                        <option value="2">Cancelado</option>
-                        <option value="3">Vendido</option>
-                    </select>
+                    <button name="estado_pedido" id={estilos.estado_pedido} onClick={() => {handleEstadoPedidos(row.id_cliente);cambiarEstadoModal1(!estadoModal1)}}><i className='fa-solid fa-shuffle'></i></button>
                     <button><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`} ></i></button>
                 </div>
             ),
         }
 
     ]
+
+    const handleEstadoPedidos = async (valor, id_pedido) => {
+        
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas cambiar el estado del Pedido?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cambiar estado',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {                    
+                    const nuevoEstado = valor;
+                    const id = id_pedido;
+                    const response = await fetch(`http://localhost:8082/ventas/pedidos/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            
+                            estado_pedido: nuevoEstado,
+                        })
+                        
+                    });
+                    if (response.ok) {
+                        console.log('Pedido actualizado exitosamente.');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pedido actualizado exitosamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        fetchPedido()
+                        setTimeout(() => {
+                            window.location.href = '/clientes';
+                        }, 2000);
+                    } else {
+                        console.error('Error al actualizar el estado del pedido');
+                    }
+                } catch (error) {
+                    console.error('Error al actualizar el estado del pedido:', error);
+                }
+            }
+        });
+    };
+    
     return (
         <>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -106,19 +158,103 @@ const Pedidos = () => {
                     <h2>Pedidos</h2>
                 </div>
             <div className={estilos["botones"]}>
-                <Link to="/agregarPedidos">
-                    <button className={`boton ${estilos["botonAgregar"]}`} ><i class="fa-solid fa-plus"></i> Agregar</button>
-                </Link>
-                <button class={`boton ${estilos["boton-generar"]}`}><i class="fa-solid fa-file-pdf"></i></button>
-            </div>
-            <div className={estilos['filtro']}>
                 <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos['busqueda']}/>
+                <div>
+                    <Link to="/agregarPedidos">
+                        <button className={`boton ${estilos["botonAgregar"]}`} ><i class="fa-solid fa-plus"></i> Agregar</button>
+                    </Link>
+                    <button class={`boton ${estilos["boton-generar"]}`}><i class="fa-solid fa-file-pdf"></i></button>
+                </div>
             </div>
             <div className={estilos["tabla"]}>
                 <DataTable columns={columns} data={filteredPedidos} pagination paginationPerPage={5} highlightOnHover></DataTable>
             </div>
+            <Modal
+				estado={estadoModal1}
+				cambiarEstado={cambiarEstadoModal1}
+				titulo="Cambiar Estado"
+				mostrarHeader={true}
+				mostrarOverlay={true}
+				posicionModal={'center'}
+                width={'300px'}
+				padding={'20px'}
+			>
+                <Contenido>
+                    <div>
+                        <div className={estilos.estado}>
+                            <p>Pendiente</p>
+                            <button type='submit' value={1} onClick={handleEstadoPedidos(1)}>Select</button>
+                        </div>
+                        <div className={estilos.estado}>
+                            <p>Cancelado</p>
+                            <button type='submit' value={2} onClick={handleEstadoPedidos(2)}>Select</button>
+                        </div>
+                        <div className={estilos.estado}>
+                            <p>Vendido</p>
+                            <button type='submit' value={3} onClick={handleEstadoPedidos(3)}>Select</button>
+                        </div>
+                    </div>
+                </Contenido>
+            </Modal>
         </>
     )
 }
 
+// // id="id_cliente"
+// className="input-field"
+// type="number"
+// placeholder="10203040"
+// name="id_cliente"
+// value={ClienteRegistrar.id_cliente}
+// onChange={handleChange}
+
 export default Pedidos;
+
+const ContenedorBotones = styled.div`
+	padding: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+`;
+
+const Boton = styled.button`
+	display: block;
+	padding: 10px 30px;
+	border-radius: 100px;
+	color: #fff;
+	border: none;
+	background: #1766DC;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	transition: .3s ease all;
+    margin-top: 20px;
+
+	&:hover {
+		background: #0066FF;
+	}
+`;
+
+const Contenido = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	h1 {
+		font-size: 42px;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+
+	p {
+		font-size: 16px;
+		margin-bottom: 11px;
+	}
+
+	img {
+		width: 100%;
+		vertical-align: top;
+		border-radius: 3px;
+	}
+`;

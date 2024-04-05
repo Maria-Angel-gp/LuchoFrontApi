@@ -32,11 +32,11 @@ input {
   }
   
   .rojo:hover{
-    background: #f33928;
+    background: #3e7fc9;
   }
   
   .rojo:active{
-    box-shadow: 1px 1px 1px 1px #f33928;
+    box-shadow: 1px 1px 1px 1px #3e7fc9;
   }
 
   .vinotinto{
@@ -65,37 +65,35 @@ input {
 /*----------------------------------*/
 
 .botones {
-    position: absolute;
-    z-index: 200;
-    margin-left: 88vh;
     display: flex;
-    margin-top: -50px;
-    margin-bottom: -90px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.boton {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
 
 .botonAgregar {
-    margin-right: 82px;
-    background-color: #E12424;
+    border: none;
+    margin-right: 20px;
+    background-color: #1F67B9;
     color: white;
+    border-radius: 50px;
+    height: 40px;
+    width: 150px;
+    font-size: 15px;
+    margin-left: -250px;
 }
 
 .boton-generar {
     background-color: #48110d;
     color: white;
+    text-align: center;
     font-size: 20px;
+    height: 40px;
+    width: 100px;
+    border-radius: 50px;
+    border: none;
 }
 
-.boton i {
-    margin-right: 10px;
-}
 
 .estado3-button {
     background-color: #4caf4f59;
@@ -105,15 +103,15 @@ input {
 }
 
 .estado1-button {
-    background-color: #b69f5260;
-    color: #b69f52;
+    background-color: #d3c586;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
 }
 
 .estado2-button{
-    background-color: #b6525260;
-    color: #b65252;
+    background-color: #b65252;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
 }
@@ -127,12 +125,12 @@ input {
 
 .busqueda{
     height: 30px;
+    border: none;
+    border: 1px solid gray;
     border-radius: 20px;
     width: 500px;
-    margin-left: -250px;
-    margin-right: 250px;
-    margin-top: 20px;
 }
+
 
 .acciones{
     display: flex;
@@ -153,4 +151,25 @@ input {
 #estado_pedido{
     background-color: rgba(255, 255, 255, 0);
     border-radius: 5px;
+}
+
+.estado{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.estado p{
+    margin-right: 90px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.estado button{
+    height: 30px;
+    border: none;
+    background-color: #3e7fc9;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
 }

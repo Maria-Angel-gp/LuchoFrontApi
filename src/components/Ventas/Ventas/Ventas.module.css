@@ -1,20 +1,19 @@
-.botones{
-    display: flex;
-    margin-left: 70%;
-    margin-top: -50px;
-}
-
-.botones .boton{
-    width: 90px;
+.botones {
     display: flex;
     justify-content: space-around;
-    height:40px;
     align-items: center;
-    font-size: 25px;
 }
+
+
 .boton-generar {
     background-color: #48110d;
     color: white;
+    text-align: center;
+    font-size: 20px;
+    height: 40px;
+    width: 100px;
+    border-radius: 50px;
+    border: none;
 }
 
 .rojo{
@@ -72,11 +71,11 @@ box-shadow: 1px 1px 1px 1px #771d17;
 
 .busqueda{
     height: 30px;
+    border: none;
+    border: 1px solid gray;
     border-radius: 20px;
-    width: 600px;
-    margin-left: -160px;
-    margin-right: 160px;
-    margin-top: 30px;
+    width: 500px;
+    margin-left: -90px;
 }
 
 .switch {
