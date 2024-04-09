@@ -17,6 +17,7 @@ import Ventas from './components/Ventas/Ventas/Ventas';
 import RegistrarPedido from './components/Ventas/Pedidos/RegistrarPedidos';
 import Pedidos from './components/Ventas/Pedidos/Pedidos';
 import Cliente from './components/Ventas/Clientes/Clientes';
+import EditarPedidos from './components/Ventas/Pedidos/EditarPedidos';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -38,7 +39,7 @@ function App() {
           <Route path="/agregarPedidos" element={<RegistrarPedido />}/>
           <Route path="/pedidos" element={<Pedidos />}/>
           <Route path="/clientes" element={<Cliente />}/>
-
+          <Route path="/editarpedidos/:id_pedido" element={<EditarPedidos/>}/>
           <Route path="*" element={<Default />}/>
         </Route>
       </Routes>

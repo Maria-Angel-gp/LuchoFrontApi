@@ -20,6 +20,7 @@ display: flex;
 
 .iconosRojos {
     color: #E12424;
+    cursor: pointer;
 }
 
 .iClienteFrecuente {
@@ -155,6 +156,7 @@ input {
     display: inline-block;
     width: 35px;
     height: 18px;
+    cursor: pointer;
 }
 
 .slider {
@@ -253,12 +255,14 @@ input[type="checkbox"] {
     color: #ffffff;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
   
 .no-frecuente-button {
     background-color: #aaaaaa;
     color: #ffffff;
     border: none;
+    cursor: pointer;
 }
 
 .contFormsRCliente {

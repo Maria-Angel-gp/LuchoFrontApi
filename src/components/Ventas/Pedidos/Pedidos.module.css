@@ -8,7 +8,6 @@
     font-size: 20px;
     margin-top: -25px;
     display: flex;
-    margin-left: 30px;
 }
 
 .iconosRojos {
@@ -39,18 +38,18 @@ input {
     box-shadow: 1px 1px 1px 1px #3e7fc9;
   }
 
-  .vinotinto{
-    background: #48110d;
+  .boton-azul{
+    background: #1F67B9;
     color: white;
   }
   
-  .vinotinto:hover{
-    background: #771d17;
+  .boton-azul:hover{
+    background: #3d7dc7;
     
   }
   
-  .vinotinto:active{
-    box-shadow: 1px 1px 1px 1px #771d17;
+  .boton-azul:active{
+    box-shadow: 1px 1px 1px 1px #5388c4;
   }
 
 /*------------------*/
@@ -172,4 +171,162 @@ input {
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.cambiarestado{
+    color: #818080;
+}
+
+#cliente{
+    display:block;
+    margin-top: 20px;
+    align-items: center;
+}
+
+#cliente p{
+    margin-right: 20px;
+}
+
+#cliente label{
+    margin-right: 20px;
+}
+
+.TablaDetallePedidos{
+    margin-left: 100px;
+}
+
+.input-container {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.input-container input{
+    width: 200px;
+}
+
+#kaka{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 0px;
+    
+}
+
+#kake{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 10px;
+}
+.agrPedidos{
+    display: flex;
+}
+
+.agrPedidos p{
+    margin-right: 20px;
+}
+
+.cajaBotonesRPedidos {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.cajaBotonesRPedidos button {
+  
+    /* Ajusta el padding para hacer los botones más largos */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* Ajusta el ancho de los botones */
+    text-align: center;
+    width: 150px;
+    margin-right: 30px;
+    height: 40px;
+    font-size: 15px;
+    /* padding-top: 10px;
+    padding-left: 20px; */
+}
+
+.rojoRPedidos{
+    background: #E12424;
+    color: white;
+}
+
+.rojoRPedidos:hover{
+    background: #f33928;
+}
+
+.rojoRPedidos:active{
+    box-shadow: 1px 1px 1px 1px #f33928;
+}
+
+#totalpedidos{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 0px;
+    margin-left: 30px;
+}
+
+.input-field2 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+
+    display: flex;
+    justify-content: end;
+
+}
+.input-field22 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+
+    display: flex;
+    justify-content: end;
+
+}
+#contenedorcito {
+    
+    display: flex;
+    margin-left: 20px;
+}
+
+.input-field {
+    padding: 10px;
+
+    border-radius: 5px;
+    width: 350px; /* Cambia este valor para ajustar el ancho del input */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.input-field-tabla {
+    padding: 0px;
+   
+    border-radius: 5px;
+    width: 150px;
+    display: flex;
+  
+    height: 27px;
+    border: 1px solid #ccc;
+    justify-content: start;
+    margin-left: 0px;
+   
+   
+  }
+
+.boton-eliminar{
+    height: 30px;
+    text-align: center;
+}
+
+.boton-gris{
+    background-color: #b3b1b1;
+    color: white;
 }

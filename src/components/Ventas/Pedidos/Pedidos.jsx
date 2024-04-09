@@ -6,6 +6,8 @@ import DataTable from 'react-data-table-component';
 import moment from "moment";
 import Modal from '../Clientes/modal';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import { event } from 'jquery';
 
 
 
@@ -14,28 +16,38 @@ const Pedidos = () => {
     const [filtro, setFiltro] = useState('');
     const [estadoModal1, cambiarEstadoModal1] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState(null);
-
-    const fetchPedido = async () =>{
-        try{
-            const response = await fetch ('http://localhost:8082/ventas/pedidos');
-            if (response.ok){
+    const [selectedRow, setSelectedRow] = useState({
+        observaciones: '',
+        fecha_venta: '',
+        fecha_pedido: '',
+        estado_pedido: 0,
+        total_venta: '',
+        total_pedido: '',
+        id_cliente: '',
+        id_usuario: ''
+    })
+    const fetchPedido = async () => {
+        try {
+            const response = await fetch('http://localhost:8082/ventas/pedidos');
+            if (response.ok) {
                 const data = await response.json();
-                const pedidoData = data.filter(pedido =>pedido.estado_pedido !==3).map(pedido =>({
-                    id_pedido : pedido.id_pedido,
-                    observaciones : pedido.observaciones,
-                    fecha_venta : moment(pedido.fecha_venta).format('DD/MM/YYYY'),
-                    fecha_pedido : moment(pedido.fecha_pedido).format('DD/MM/YYYY'),
-                    estado_pedido:pedido.estado_pedido,
+                const pedidoData = data.filter(pedido => pedido.estado_pedido !== 3 && pedido.estado_pedido !== 4).map(pedido => ({
+                    id_pedido: pedido.id_pedido,
+                    observaciones: pedido.observaciones,
+                    fecha_venta: (pedido.fecha_venta),
+                    fecha_pedido: (pedido.fecha_pedido),
+                    estado_pedido: pedido.estado_pedido,
                     total_venta: pedido.total_venta,
                     total_pedido: pedido.total_pedido,
-                    id_cliente : pedido.id_cliente
+                    id_cliente: pedido.id_cliente,
+                    id_usuario: pedido.id_usuario
 
                 }));
                 setPedidos(pedidoData);
-            }else{
+            } else {
                 console.error('Error al obtener las venta');
             }
-        }catch(error){
+        } catch (error) {
             console.error('Error al obtener las venta:', error);
         }
     };
@@ -47,12 +59,12 @@ const Pedidos = () => {
     };
 
     const filteredPedidos = Pedidos.filter(pedido =>
-        pedido.id_pedido.toString().includes(filtro)||
-        pedido.observaciones.toLowerCase().includes(filtro.toLowerCase())||
+        pedido.id_pedido.toString().includes(filtro) ||
+        pedido.observaciones.toLowerCase().includes(filtro.toLowerCase()) ||
         pedido.total_pedido.toString().includes(filtro)
     );
 
-    
+
 
     const estadoMapping = {
         1: 'Pendiente',
@@ -63,47 +75,49 @@ const Pedidos = () => {
 
     const columns = [
         {
-            name :"Observaciones",
-            selector: (row)=>row.observaciones,
+            name: "Observaciones",
+            selector: (row) => row.observaciones,
             sortable: true
         },
         {
-            name :"Total del pedido",
-            selector: (row)=>row.total_pedido,
+            name: "Total del pedido",
+            selector: (row) => row.total_pedido,
             sortable: true
         },
         {
-            name :"Fecha del pedido",
-            selector: (row)=>row.fecha_pedido,
+            name: "Fecha del pedido",
+            selector: (row) => moment(row.fecha_pedido).format('DD/MM/YYYY'),
             sortable: true
         },
         {
-            name :'Cliente',
-            selector: (row)=>row.id_cliente,
+            name: 'Cliente',
+            selector: (row) => row.id_cliente,
             sortable: true
         },
         {
-            name :"Estado",
-            selector: (row)=>estadoMapping[row.estado_pedido],
+            name: "Estado",
+            selector: (row) => estadoMapping[row.estado_pedido],
             sortable: true,
-            cell : (row) =>(
-                <button className={`${row.estado_pedido ===1 && estilos['estado1-button']} ${row.estado_pedido ===2 && estilos['estado2-button']} ${row.estado_pedido ===3 && estilos['estado3-button']}`}>{estadoMapping[row.estado_pedido]}</button>
+            cell: (row) => (
+                <button className={`${row.estado_pedido === 1 && estilos['estado1-button']} ${row.estado_pedido === 2 && estilos['estado2-button']} ${row.estado_pedido === 3 && estilos['estado3-button']}`}>{estadoMapping[row.estado_pedido]}</button>
             )
         },
         {
-            name :'Acciones',
-            cell :(row) =>(
+            name: 'Acciones',
+            cell: (row) => (
                 <div className={estilos['acciones']}>
-                    <button name="estado_pedido" id={estilos.estado_pedido} onClick={() => {handleEstadoPedidos(row.id_cliente);cambiarEstadoModal1(!estadoModal1)}}><i className='fa-solid fa-shuffle'></i></button>
-                    <button><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`} ></i></button>
+                    <button name="estado_pedido" id={estilos.estado_pedido} onClick={() => { setSelectedRowId(row.id_pedido); setSelectedRow(row); cambiarEstadoModal1(!estadoModal1) }}><i className={`fa-solid fa-shuffle ${estilos.cambiarestado}`}></i></button>
+                    <Link to={`/editarpedidos/${row.id_pedido}`}>
+                        <button><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`} ></i></button>
+                    </Link>
                 </div>
-            ),
+            )
         }
-
     ]
+      
 
-    const handleEstadoPedidos = async (valor, id_pedido) => {
-        
+    const handleEstadoPedidos = async (selectedRowId, selectedRow, event) => {
+        event.preventDefault();
         Swal.fire({
             title: '¿Estás seguro?',
             text: '¿Deseas cambiar el estado del Pedido?',
@@ -115,19 +129,23 @@ const Pedidos = () => {
             cancelButtonText: 'Cancelar'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                try {                    
-                    const nuevoEstado = valor;
-                    const id = id_pedido;
+                try {
+                    const nuevoEstado = parseInt(event.target.value, 10);
+                    //función para acceder al selectedRowId
+                    const id = selectedRowId;
+                    const row = selectedRow;
+                    console.log(`Updating pedido with ID ${id} to status ${nuevoEstado}`);
+                    console.log(row);
                     const response = await fetch(`http://localhost:8082/ventas/pedidos/${id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            
+                            ...row,
                             estado_pedido: nuevoEstado,
                         })
-                        
+
                     });
                     if (response.ok) {
                         console.log('Pedido actualizado exitosamente.');
@@ -137,10 +155,10 @@ const Pedidos = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        fetchPedido()
                         setTimeout(() => {
-                            window.location.href = '/clientes';
-                        }, 2000);
+                            window.location.href = '/pedidos';
+                        }, 1000);
+                        fetchPedido()
                     } else {
                         console.error('Error al actualizar el estado del pedido');
                     }
@@ -150,15 +168,15 @@ const Pedidos = () => {
             }
         });
     };
-    
+
     return (
         <>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-                <div id={estilos["titulo"]}>
-                    <h2>Pedidos</h2>
-                </div>
+            <div id={estilos["titulo"]}>
+                <h2>Pedidos</h2>
+            </div>
             <div className={estilos["botones"]}>
-                <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos['busqueda']}/>
+                <input type="text" placeholder="Buscar..." value={filtro} onChange={handleFiltroChange} className={estilos['busqueda']} />
                 <div>
                     <Link to="/agregarPedidos">
                         <button className={`boton ${estilos["botonAgregar"]}`} ><i class="fa-solid fa-plus"></i> Agregar</button>
@@ -170,28 +188,30 @@ const Pedidos = () => {
                 <DataTable columns={columns} data={filteredPedidos} pagination paginationPerPage={5} highlightOnHover></DataTable>
             </div>
             <Modal
-				estado={estadoModal1}
-				cambiarEstado={cambiarEstadoModal1}
-				titulo="Cambiar Estado"
-				mostrarHeader={true}
-				mostrarOverlay={true}
-				posicionModal={'center'}
+                estado={estadoModal1}
+                cambiarEstado={cambiarEstadoModal1}
+                titulo="Cambiar Estado"
+                mostrarHeader={true}
+                mostrarOverlay={true}
+                posicionModal={'center'}
                 width={'300px'}
-				padding={'20px'}
-			>
+                padding={'20px'}
+                selectedRowId={selectedRowId}
+                selectedRow={selectedRow}
+            >
                 <Contenido>
                     <div>
                         <div className={estilos.estado}>
                             <p>Pendiente</p>
-                            <button type='submit' value={1} onClick={handleEstadoPedidos(1)}>Select</button>
+                            <button type='button' value={1} onClick={(event) => { handleEstadoPedidos(selectedRowId, selectedRow, event) }}>Select</button>
                         </div>
                         <div className={estilos.estado}>
                             <p>Cancelado</p>
-                            <button type='submit' value={2} onClick={handleEstadoPedidos(2)}>Select</button>
+                            <button type='submit' value={2} onClick={(event) => { handleEstadoPedidos(selectedRowId, selectedRow, event) }}>Select</button>
                         </div>
                         <div className={estilos.estado}>
                             <p>Vendido</p>
-                            <button type='submit' value={3} onClick={handleEstadoPedidos(3)}>Select</button>
+                            <button type='submit' value={3} onClick={(event) => { handleEstadoPedidos(selectedRowId, selectedRow, event) }}>Select</button>
                         </div>
                     </div>
                 </Contenido>

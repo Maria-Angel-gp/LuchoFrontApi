@@ -15,7 +15,7 @@ const Cliente = () => {
     const [estadoModal1, cambiarEstadoModal1] = useState(false);
     const [estadoModal2, cambiarEstadoModal2] = useState(false);
     const [ClienteRegistrar, setClienteRegistrar] = useState({
-        id_cliente:'',
+        id_cliente:0,
         nombre_cliente: '',
         telefono_cliente: '',
         direccion_cliente: '',
@@ -97,27 +97,11 @@ const Cliente = () => {
         },
         {
             name : "Cliente Frecuente",
-            // selector : (row) =>row.cliente_frecuente ===1 ? 'Frecuente' : 'No frecuente',
-            // selector : (row) => row.cliente_frecuente,
+            selector : (row) =>row.cliente_frecuente ===1 ? 'Frecuente' : 'No frecuente',
             sortable: true,
-            // conditionalCellStyles: [
-            //     {
-            //         when: (row)=>row.cliente_frecuente ===1,
-            //         style :{
-            //             color: '#00FF00'
-            //         }                    
-            //     },
-            //     {
-            //         when: (row)=>row.cliente_frecuente !==1,
-            //         style :{
-            //             // color: '#6d6d6db2'
-            //             color: '#992222'
-            //         }                    
-            //     }
-            // ],
             cell: (row) =>(
                 <div>
-                    <button className={`${estilos["frecuente-button"]} ${row.cliente_frecuente !== 1 && estilos['no-frecuente-button']}`}>{row.cliente_frecuente ==1 ? 'Frecuente' : 'No frecuente'}</button>
+                    <button className={`${estilos["frecuente-button"]} ${row.cliente_frecuente !== 1 && estilos['no-frecuente-button']}`} onClick={()=>handleClienteFrecuente(row)} >{row.cliente_frecuente ==1 ? 'Frecuente' : 'No frecuente'}</button>
                 </div>
             ),
         },
@@ -127,12 +111,12 @@ const Cliente = () => {
                 <div className= {estilos["acciones"]}>
                     <label className={estilos["switch"]} >
                         <input type="checkbox" onChange={() => handleEstadoCliente(row)} />
-                        {row.cliente_frecuente ===1 ? (
-                            <span className={`${row.cliente_frecuente == 1 && estilos['slider2']}`}></span>
+                        {row.estado_cliente ===1 ? (
+                            <span className={`${row.estado_cliente == 1 && estilos['slider2']}`}></span>
                         ):(
-                            <span className={`${row.cliente_frecuente !==1 && estilos['slider']}`}></span>
+                            <span className={`${row.estado_cliente !==1 && estilos['slider']}`}></span>
                         )}
-                        <span className={`${row.cliente_frecuente == 1 && estilos['slider2']} ${row.cliente_frecuente !==1 && estilos['slider']}`}></span>
+                        <span className={`${row.estado_cliente == 1 && estilos['slider2']} ${row.estado_cliente !==1 && estilos['slider']}`}></span>
                     </label>
                     <button onClick={() => {cambiarEstadoModal2(!estadoModal2),setClientesEditar(row)}}><i className={`fa-solid fa-pen-to-square ${estilos.iconosRojos}`}></i></button>
                 </div>
@@ -159,6 +143,47 @@ const Cliente = () => {
 
     const RegistrarCliente = async (event) => {
         event.preventDefault();
+        if(ClienteRegistrar.id_cliente===0 && ClienteRegistrar.nombre_cliente==='' && ClienteRegistrar.telefono_cliente==='' && ClienteRegistrar.direccion_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hay campos vacíos',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClienteRegistrar.id_cliente === 0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo del documento esta vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClienteRegistrar.nombre_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo del nombre esta vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClienteRegistrar.telefono_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo del teléfono esta vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClienteRegistrar.direccion_cliente ===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo de la dirección está vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }
         try {
             const responseProveedores = await fetch('http://localhost:8082/ventas/clientes', {
                 method: 'POST',
@@ -207,6 +232,74 @@ const Cliente = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
+                    const nuevoEstado = row.estado_cliente === 1 ? 0 : 1;
+                    if(nuevoEstado===0){
+                        const response = await fetch(`http://localhost:8082/ventas/clientes/${row.id_cliente}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ...row,
+                            cliente_frecuente: nuevoEstado,
+                            estado_cliente: nuevoEstado
+                        })
+                        
+                    });
+                    if (response.ok) {
+                        // Actualización exitosa, actualizar la lista de clientes
+                        fetchVenta();
+                    } else {
+                        console.error('Error al actualizar el estado del usuario');
+                    }
+                    }else{                        
+                        const response = await fetch(`http://localhost:8082/ventas/clientes/${row.id_cliente}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                ...row,
+                                estado_cliente: nuevoEstado
+                            })
+                            
+                        });
+                        if (response.ok) {
+                            // Actualización exitosa, actualizar la lista de compras
+                            fetchVenta();
+                        } else {
+                            console.error('Error al actualizar el estado del usuario');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error al actualizar el estado del usuario:', error);
+                }
+            }
+        });
+    };
+
+    const handleClienteFrecuente = async (row) =>{
+        // const estado_cliente=row.estado_cliente === 0 
+        if(row.estado_cliente===0){
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'No se puede cambiar porque el cliente se encuentra Inhabilitado',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }
+        Swal.fire({
+            title: '¿Deseas cambiar el estado del Cliente?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: 'gray',
+            confirmButtonText: 'Sí, cambiar estado',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
                     const nuevoEstado = row.cliente_frecuente === 1 ? 0 : 1;
 
                     const response = await fetch(`http://localhost:8082/ventas/clientes/${row.id_cliente}`, {
@@ -216,8 +309,7 @@ const Cliente = () => {
                         },
                         body: JSON.stringify({
                             ...row,
-                            cliente_frecuente: nuevoEstado,
-                            estado_cliente: nuevoEstado
+                            cliente_frecuente: nuevoEstado
                         })
                         
                     });
@@ -231,14 +323,45 @@ const Cliente = () => {
                     console.error('Error al actualizar el estado del usuario:', error);
                 }
             }
-        });
-    };
+        })
+    }
 
     const EditarCliente = async (event) => {
         event.preventDefault();
-
         console.log(clientes)
-
+        if(ClientesEditar.nombre_cliente===''&&ClientesEditar.telefono_cliente===''&&ClientesEditar.direccion_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Los campos están vacíos',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClientesEditar.nombre_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo del nombre se encuentra vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClientesEditar.telefono_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo de la teléfono se encuentra vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }else if(ClientesEditar.direccion_cliente===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El campo de la dirección se encuentra vacío',
+                confirmButtonColor: '#1F67B9',
+            });
+            return;
+        }
         Swal.fire({
             title: '¿Deseas actualizar la información del cliente?',
             icon: 'warning',
@@ -318,7 +441,7 @@ const Cliente = () => {
 				mostrarOverlay={true}
 				posicionModal={'center'}
                 width={'500px'}
-				padding={'20px'}
+				padding={'10px'}
 			>
 				<Contenido>
                         <div className={estilos["contFormsRCliente"]}>
